@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Hy My Treasure </title>
+<title>Hy My Treasure</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
@@ -19,19 +19,19 @@ body {
 
 /* Fullscreen background after Yes */
 .full-bg {
-    background-size: contain;      /* keeps full 9:16 photo visible */
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #ffe6f2;     /* fills empty space nicely */
+    background-color: #ffe6f2;
 }
 
-/* Main container — mobile centered */
+/* Main container */
 .container {
     margin-top: 8vh;
     padding: 0 10px;
 }
 
-/* Image — mobile friendly size */
+/* First image */
 #mainImage {
     width: 80%;
     max-width: 320px;
@@ -40,7 +40,7 @@ body {
     transition: opacity 0.7s ease;
 }
 
-/* Sparkling romantic text */
+/* Romantic text */
 h2 {
     font-family: 'Dancing Script', cursive;
     font-size: 28px;
@@ -48,17 +48,13 @@ h2 {
     background: linear-gradient(45deg, #ff4d6d, #d63384, #8e44ad);
     -webkit-background-clip: text;
     color: transparent;
-
-    /* TEXT SHADOW (new) */
     text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.35),   /* main shadow */
-        0px 0px 10px rgba(255, 105, 180, 0.6); /* glow */
-
+        2px 2px 4px rgba(0, 0, 0, 0.35),
+        0px 0px 10px rgba(255, 105, 180, 0.6);
     animation: sparkle 1.5s infinite alternate;
 }
 
-
-/* Buttons container — straight line */
+/* Buttons row */
 .buttons {
     margin-top: 20px;
     display: flex;
@@ -66,7 +62,7 @@ h2 {
     gap: 20px;
 }
 
-/* Mobile-friendly buttons */
+/* Buttons base */
 button {
     font-size: 16px;
     padding: 12px 22px;
@@ -81,20 +77,15 @@ button {
     color: white;
 }
 
-/* No button — starts aligned, moves smoothly */
+/* No button (aligned first, moves smoothly later) */
 #noBtn {
     background: linear-gradient(45deg, #ffcc00, #ffb703);
     color: black;
-
-    /* IMPORTANT: keep in row first */
     position: relative;
-
-    transition: transform 0.4s ease, left 0.6s ease, top 0.6s ease;
+    left: 0;
+    top: 0;
+    transition: left 0.6s ease, top 0.6s ease;
 }
-
-
-
-
 
 /* Floating hearts */
 .heart {
@@ -134,6 +125,10 @@ button {
 
 <body>
 
+<audio id="bgMusic" loop>
+    <source src="love.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container" id="container">
     <img id="mainImage" src="image1.png" alt="Valentine Image">
 
@@ -148,12 +143,12 @@ button {
 <script>
 let movedOnce = false;
 
+// Smooth moving No button
 function moveNo() {
     var noBtn = document.getElementById("noBtn");
 
     if (!movedOnce) {
         movedOnce = true;
-        // Switch to absolute ONLY AFTER first touch
         noBtn.style.position = "absolute";
     }
 
@@ -163,9 +158,6 @@ function moveNo() {
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
-
-
-
 
 // Confetti effect
 function launchConfetti() {
@@ -219,6 +211,11 @@ setInterval(() => {
 
     setTimeout(() => heart.remove(), 6000);
 }, 900);
+
+// Music starts on first tap (works on all phones)
+document.body.addEventListener("touchstart", function() {
+    document.getElementById("bgMusic").play();
+}, { once: true });
 
 </script>
 
