@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Valentine Proposal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@500&display=swap" rel="stylesheet">
 
@@ -16,69 +17,54 @@ body {
     transition: background 0.8s ease;
 }
 
-/* Fullscreen background class after Yes */
+/* Fullscreen background after Yes */
 .full-bg {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* Main container */
+/* Main container — mobile centered */
 .container {
-    margin-top: 60px;
-    animation: fadeIn 1.2s ease-in-out;
+    margin-top: 8vh;
+    padding: 0 10px;
 }
 
-/* Image styling */
+/* Image — mobile friendly size */
 #mainImage {
-    width: 320px;
+    width: 80%;
+    max-width: 320px;
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-    transition: opacity 0.7s ease, transform 0.6s ease;
+    transition: opacity 0.7s ease;
 }
 
-/* Sparkling, heart-style text */
+/* Sparkling romantic text */
 h2 {
     font-family: 'Dancing Script', cursive;
-    font-size: 38px;
+    font-size: 28px;
+    margin: 15px 0;
     background: linear-gradient(45deg, #ff4d6d, #d63384, #8e44ad);
     -webkit-background-clip: text;
     color: transparent;
-    text-shadow: 0px 0px 12px rgba(255, 105, 180, 0.5);
-    letter-spacing: 2px;
-    animation: gentleFloat 3s ease-in-out infinite, sparkle 1.5s infinite alternate;
+    text-shadow: 0px 0px 10px rgba(255,105,180,0.5);
+    animation: sparkle 1.5s infinite alternate;
 }
 
-/* Gentle floating text */
-@keyframes gentleFloat {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0px); }
-}
-
-/* Sparkle effect */
-@keyframes sparkle {
-    0% { filter: brightness(1); }
-    50% { filter: brightness(1.4); }
-    100% { filter: brightness(1); }
-}
-
-/* Buttons container */
+/* Buttons container — straight line */
 .buttons {
-    margin-top: 25px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
 }
 
-/* Romantic button base style */
+/* Mobile-friendly buttons */
 button {
-    font-size: 18px;
-    padding: 12px 28px;
+    font-size: 16px;
+    padding: 12px 22px;
     border: none;
-    cursor: pointer;
     border-radius: 25px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     font-weight: bold;
 }
 
@@ -86,10 +72,9 @@ button {
 #yesBtn {
     background: linear-gradient(45deg, #ff4d6d, #ff758c);
     color: white;
-    box-shadow: 0px 4px 10px rgba(255, 77, 109, 0.4);
 }
 
-/* No button */
+/* No button — starts aligned, moves smoothly */
 #noBtn {
     background: linear-gradient(45deg, #ffcc00, #ffb703);
     color: black;
@@ -101,13 +86,13 @@ button {
 .heart {
     position: absolute;
     bottom: -50px;
-    font-size: 25px;
+    font-size: 22px;
     animation: floatUp 6s linear infinite;
 }
 
 @keyframes floatUp {
     0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-800px); opacity: 0; }
+    100% { transform: translateY(-700px); opacity: 0; }
 }
 
 /* Confetti */
@@ -120,14 +105,15 @@ button {
 }
 
 @keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(600px); opacity: 0; }
 }
 
-/* Page fade-in */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Sparkle text */
+@keyframes sparkle {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.4); }
+    100% { filter: brightness(1); }
 }
 </style>
 </head>
@@ -141,14 +127,14 @@ button {
 
     <div class="buttons" id="buttonBox">
         <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
-        <button id="noBtn" onmouseover="moveNo()">No 😜</button>
+        <button id="noBtn" ontouchstart="moveNo()" onmouseover="moveNo()">No 😜</button>
     </div>
 </div>
 
 <script>
 let movedOnce = false;
 
-// Smooth moving No button
+// Move No button smoothly (works on touch)
 function moveNo() {
     var noBtn = document.getElementById("noBtn");
 
@@ -157,8 +143,8 @@ function moveNo() {
         noBtn.style.position = "absolute";
     }
 
-    var x = Math.random() * (window.innerWidth - 150);
-    var y = Math.random() * (window.innerHeight - 150);
+    var x = Math.random() * (window.innerWidth - 120);
+    var y = Math.random() * (window.innerHeight - 180);
 
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
@@ -166,7 +152,7 @@ function moveNo() {
 
 // Confetti effect
 function launchConfetti() {
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < 100; i++) {
         const confetti = document.createElement("div");
         confetti.classList.add("confetti");
 
@@ -183,29 +169,21 @@ function launchConfetti() {
     }
 }
 
-// Change to full background after Yes
+// After Yes → full background + hide buttons
 function sayYes() {
     const img = document.getElementById("mainImage");
     const text = document.getElementById("questionText");
     const buttons = document.getElementById("buttonBox");
 
-    // Hide buttons
     buttons.style.display = "none";
-
-    // Fade out current image
     img.style.opacity = "0";
 
     launchConfetti();
 
     setTimeout(() => {
-        // Set full background image
         document.body.classList.add("full-bg");
         document.body.style.backgroundImage = "url('image2.jpg')";
-
-        // Hide small image
         img.style.display = "none";
-
-        // Change text
         text.innerHTML = "🎉 Yay! Love you forever ❤️";
     }, 700);
 }
