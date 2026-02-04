@@ -19,9 +19,10 @@ body {
 
 /* Fullscreen background after Yes */
 .full-bg {
-    background-size: cover;
+    background-size: contain;      /* keeps full 9:16 photo visible */
     background-position: center;
     background-repeat: no-repeat;
+    background-color: #ffe6f2;     /* fills empty space nicely */
 }
 
 /* Main container — mobile centered */
@@ -198,7 +199,8 @@ function sayYes() {
 
     setTimeout(() => {
         document.body.classList.add("full-bg");
-        document.body.style.backgroundImage = "url('image2.png')";
+        document.body.style.backgroundImage = "url('image2.jpeg')";
+        document.body.style.backgroundAttachment = "fixed";
         img.style.display = "none";
         text.innerHTML = "🎉 Yay! Love you forever ❤️";
     }, 700);
