@@ -178,12 +178,11 @@ function launchConfetti() {
     }
 }
 
-// After Yes → full background + hide buttons
+// After Yes → full background + hide buttons (music CONTINUES)
 function sayYes() {
     const img = document.getElementById("mainImage");
     const text = document.getElementById("questionText");
     const buttons = document.getElementById("buttonBox");
-    const music = document.getElementById("bgMusic");
 
     buttons.style.display = "none";
     img.style.opacity = "0";
@@ -196,9 +195,7 @@ function sayYes() {
         document.body.style.backgroundAttachment = "fixed";
         img.style.display = "none";
         text.innerHTML = "🎉 Yay! Love you forever ❤️";
-
-        // Stop music after Yes (optional — remove this line if you want it to continue)
-        music.pause();
+        // MUSIC IS NOT STOPPED HERE ✔
     }, 700);
 }
 
@@ -216,20 +213,17 @@ setInterval(() => {
     setTimeout(() => heart.remove(), 6000);
 }, 900);
 
-// -------- MUSIC FIX (MOST IMPORTANT PART) --------
-
-// Start music on any first user action (works on ALL phones)
+// -------- MUSIC FIX (works on all phones) --------
 function startMusic() {
     const music = document.getElementById("bgMusic");
     music.play().catch(err => console.log("Autoplay blocked:", err));
 }
 
-// Trigger on first touch OR first click anywhere
+// Start music on first tap anywhere
 document.body.addEventListener("touchstart", startMusic, { once: true });
 document.body.addEventListener("click", startMusic, { once: true });
 
 </script>
-
 
 </body>
 </html>
