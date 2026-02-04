@@ -47,9 +47,15 @@ h2 {
     background: linear-gradient(45deg, #ff4d6d, #d63384, #8e44ad);
     -webkit-background-clip: text;
     color: transparent;
-    text-shadow: 0px 0px 10px rgba(255,105,180,0.5);
+
+    /* TEXT SHADOW (new) */
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.35),   /* main shadow */
+        0px 0px 10px rgba(255, 105, 180, 0.6); /* glow */
+
     animation: sparkle 1.5s infinite alternate;
 }
+
 
 /* Buttons container — straight line */
 .buttons {
@@ -78,9 +84,16 @@ button {
 #noBtn {
     background: linear-gradient(45deg, #ffcc00, #ffb703);
     color: black;
+
+    /* IMPORTANT: keep in row first */
     position: relative;
-    transition: left 0.6s ease, top 0.6s ease;
+
+    transition: transform 0.4s ease, left 0.6s ease, top 0.6s ease;
 }
+
+
+
+
 
 /* Floating hearts */
 .heart {
@@ -121,7 +134,7 @@ button {
 <body>
 
 <div class="container" id="container">
-    <img id="mainImage" src="image1.jpg" alt="Valentine Image">
+    <img id="mainImage" src="image1.png" alt="Valentine Image">
 
     <h2 id="questionText">❤️ Will you be my Valentine? ❤️</h2>
 
@@ -134,12 +147,12 @@ button {
 <script>
 let movedOnce = false;
 
-// Move No button smoothly (works on touch)
 function moveNo() {
     var noBtn = document.getElementById("noBtn");
 
     if (!movedOnce) {
         movedOnce = true;
+        // Switch to absolute ONLY AFTER first touch
         noBtn.style.position = "absolute";
     }
 
@@ -149,6 +162,9 @@ function moveNo() {
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
+
+
+
 
 // Confetti effect
 function launchConfetti() {
@@ -182,7 +198,7 @@ function sayYes() {
 
     setTimeout(() => {
         document.body.classList.add("full-bg");
-        document.body.style.backgroundImage = "url('image2.jpg')";
+        document.body.style.backgroundImage = "url('image2.png')";
         img.style.display = "none";
         text.innerHTML = "🎉 Yay! Love you forever ❤️";
     }, 700);
